@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHERNIUM — ASCII Art Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Ethernium Sym';
+            src: url('Ethernium_Sym.ttf?v=30') format('truetype'),
+                 url('Ethernium_Sym.woff2?v=30') format('woff2'),
+                 url('Ethernium_Sym.woff?v=30') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        :root {
+            --bg: #08080c;
+            --card: rgba(16, 16, 22, 0.75);
+            --border: rgba(255,255,255,0.06);
+            --accent: #22d3ee;
+            --accent2: #06b6d4;
+            --accent-dim: rgba(34, 211, 238, 0.08);
+            --text: #e4e4e7;
+            --muted: #71717a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse at 30% 0%, rgba(34,211,238,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 100%, rgba(6,182,212,0.03) 0%, transparent 50%);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header { text-align: center; margin-bottom: 2rem; }
+        h1 {
+            font-family: 'Ethernium Sym';
+            font-size: 2.5rem;
+            letter-spacing: 0.12em;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(34,211,238,0.2);
+        }
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Input area */
+        .input-row {
+            display: flex;
+            gap: 0.8rem;
+            align-items: stretch;
+        }
+        input[type="text"] {
+            flex: 1;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus { border-color: rgba(34,211,238,0.3); }
+        input[type="text"]::placeholder { color: var(--muted); }
+
+        button {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            color: #000;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(34,211,238,0.2);
+        }
+        button:active { transform: translateY(1px); }
+
+        .btn-secondary {
+            background: rgba(34,211,238,0.08);
+            color: var(--accent);
+            border: 1px solid rgba(34,211,238,0.15);
+        }
+        .btn-secondary:hover {
+            background: rgba(34,211,238,0.12);
+            box-shadow: none;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .control-group label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+        select, input[type="range"] {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            padding: 0.4rem 0.6rem;
+            font-family: inherit;
+            font-size: 0.8rem;
+            outline: none;
+        }
+        select { cursor: pointer; }
+        input[type="range"] {
+            accent-color: var(--accent);
+            width: 120px;
+        }
+
+        /* Output */
+        .output-area {
+            position: relative;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            min-height: 120px;
+        }
+        .output-area pre {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.7rem;
+            line-height: 1.15;
+            color: var(--accent);
+            margin: 0;
+            white-space: pre;
+        }
+        .output-area .placeholder {
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background: rgba(34,211,238,0.1);
+            border: 1px solid rgba(34,211,238,0.2);
+            color: var(--accent);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: rgba(34,211,238,0.2); }
+
+        /* Preview comparison */
+        .preview-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .preview-font {
+            font-family: 'Ethernium Sym';
+            font-size: 2rem;
+            color: #fff;
+            letter-spacing: 0.08em;
+        }
+        .preview-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Color themes */
+        .color-swatches {
+            display: flex;
+            gap: 0.4rem;
+        }
+        .swatch {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .swatch:hover { transform: scale(1.15); }
+        .swatch.active { border-color: #fff; }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(34,211,238,0.12);
+            border: 1px solid rgba(34,211,238,0.3);
+            color: var(--accent);
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ETHERNIUM</h1>
+        <div class="subtitle">ASCII Art Generator</div>
+    </header>
+
+    <div class="container">
+        <!-- Input -->
+        <div class="card">
+            <div class="card-title">Texto de entrada</div>
+            <div class="input-row">
+                <input type="text" id="inputText" value="ETHERNIUM" placeholder="Escribe tu texto aquí..." maxlength="30" autocomplete="off" spellcheck="false">
+                <button onclick="generateAscii()">Generar</button>
+            </div>
+            <div class="controls">
+                <div class="control-group">
+                    <label>Altura:</label>
+                    <input type="range" id="heightRange" min="4" max="14" value="8">
+                    <span id="heightVal" style="font-size:0.8rem; color:var(--muted); min-width:30px">8px</span>
+                </div>
+                <div class="control-group">
+                    <label>Estilo:</label>
+                    <select id="rampSelect">
+                        <option value="detail" selected>Detalle (@%#*)</option>
+                        <option value="block">Bloques (█▓▒░)</option>
+                        <option value="simple">Simple (#@%=)</option>
+                        <option value="hash">Hash (#.)</option>
+                        <option value="dots">Puntos (●○.)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Color:</label>
+                    <div class="color-swatches" id="colorSwatches">
+                        <div class="swatch active" style="background:#22d3ee" data-color="#22d3ee" onclick="setColor(this)"></div>
+                        <div class="swatch" style="background:#a78bfa" data-color="#a78bfa" onclick="setColor(this)"></div>
+                        <div class="swatch" style="background:#4ade80" data-color="#4ade80" onclick="setColor(this)"></div>
+                        <div class="swatch" style="background:#fb923c" data-color="#fb923c" onclick="setColor(this)"></div>
+                        <div class="swatch" style="background:#f472b6" data-color="#f472b6" onclick="setColor(this)"></div>
+                        <div class="swatch" style="background:#e4e4e7" data-color="#e4e4e7" onclick="setColor(this)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output -->
+        <div class="card">
+            <div class="card-title">Resultado ASCII Art</div>
+            <div class="output-area" id="outputArea">
+                <button class="copy-btn" onclick="copyOutput()">📋 Copiar</button>
+                <pre id="outputPre"><span class="placeholder">Pulsa "Generar" o escribe y presiona Enter...</span></pre>
+            </div>
+            <div class="preview-row">
+                <div>
+                    <div class="preview-label">Fuente original</div>
+                    <div class="preview-font" id="fontPreview">ETHERNIUM</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="card">
+            <div class="card-title">Acciones rápidas</div>
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap">
+                <button class="btn-secondary" onclick="quickText('ETHERNIUM')">ETHERNIUM</button>
+                <button class="btn-secondary" onclick="quickText('HELLO WORLD')">HELLO WORLD</button>
+                <button class="btn-secondary" onclick="quickText('CRYPTO')">CRYPTO</button>
+                <button class="btn-secondary" onclick="quickText('GENESIS')">GENESIS</button>
+                <button class="btn-secondary" onclick="quickText('MATRIX')">MATRIX</button>
+                <button class="btn-secondary" onclick="showAlphabet()">Ver Alfabeto</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <a href="preview_font.html">Mapa de caracteres</a> ·
+        <a href="unicode_converter.html">Unicode Converter</a> ·
+        Ethernium Sym v3.0
+    </footer>
+
+    <script>
+        // ── ASCII Rendering Engine (pure JS, no server needed) ──────────
+        const RAMPS = {
+            detail: '@%#*+=-:. ',
+            block:  '█▓▒░ ',
+            simple: '#@%=+*:.- ',
+            hash:   '##::.. ',
+            dots:   '●●○○·· ',
+        };
+
+        let currentColor = '#22d3ee';
+        let asciiCache = {};
+
+        // Render a character using canvas
+        function renderCharToMatrix(char, fontSize, height) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = fontSize * 3;
+            canvas.height = fontSize * 3;
+
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = `${fontSize}px "Ethernium Sym"`;
+            ctx.fillStyle = '#fff';
+            ctx.textBaseline = 'top';
+
+            const metrics = ctx.measureText(char);
+            const xOff = Math.max(0, -metrics.actualBoundingBoxLeft || 0);
+            const yOff = fontSize * 0.1;
+            ctx.fillText(char, xOff + 10, yOff + 10);
+
+            // Find ink bounds
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = imageData.data;
+            let minX = canvas.width, maxX = 0, minY = canvas.height, maxY = 0;
+
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    const i = (y * canvas.width + x) * 4;
+                    if (pixels[i] > 20) {
+                        minX = Math.min(minX, x);
+                        maxX = Math.max(maxX, x);
+                        minY = Math.min(minY, y);
+                        maxY = Math.max(maxY, y);
+                    }
+                }
+            }
+
+            if (maxX <= minX || maxY <= minY) return null;
+
+            // Add small padding
+            minX = Math.max(0, minX - 1);
+            minY = Math.max(0, minY - 1);
+            maxX = Math.min(canvas.width - 1, maxX + 1);
+            maxY = Math.min(canvas.height - 1, maxY + 1);
+
+            const cropW = maxX - minX + 1;
+            const cropH = maxY - minY + 1;
+
+            // Calculate target width (ASCII chars are ~2x taller than wide)
+            const aspect = cropW / cropH;
+            const targetW = Math.max(1, Math.round(height * aspect * 2));
+
+            // Downsample to target size
+            const matrix = [];
+            for (let row = 0; row < height; row++) {
+                const line = [];
+                for (let col = 0; col < targetW; col++) {
+                    const srcX = minX + Math.floor(col * cropW / targetW);
+                    const srcY = minY + Math.floor(row * cropH / height);
+                    const srcX2 = minX + Math.floor((col + 1) * cropW / targetW);
+                    const srcY2 = minY + Math.floor((row + 1) * cropH / height);
+
+                    // Average brightness in this cell
+                    let sum = 0, count = 0;
+                    for (let sy = srcY; sy < srcY2; sy++) {
+                        for (let sx = srcX; sx < srcX2; sx++) {
+                            const i = (sy * canvas.width + sx) * 4;
+                            sum += pixels[i];
+                            count++;
+                        }
+                    }
+                    line.push(count > 0 ? sum / count / 255 : 0);
+                }
+                matrix.push(line);
+            }
+
+            return matrix;
+        }
+
+        function matrixToAscii(matrix, rampStr) {
+            if (!matrix) return [];
+            const ramp = rampStr.split('');
+            return matrix.map(row =>
+                row.map(val => {
+                    const idx = Math.max(0, Math.min(ramp.length - 1,
+                        Math.floor((1 - val) * (ramp.length - 1))));
+                    return ramp[idx];
+                }).join('')
+            );
+        }
+
+        function textToAscii(text, height, rampName) {
+            const ramp = RAMPS[rampName] || RAMPS.detail;
+            const fontSize = height * 8;
+            const spacing = 1;
+
+            const glyphs = [];
+            for (const char of text.toUpperCase()) {
+                if (char === ' ') {
+                    const spaceW = Math.max(3, Math.floor(height / 2));
+                    const spaceGlyph = Array(height).fill(' '.repeat(spaceW));
+                    glyphs.push(spaceGlyph);
+                    continue;
+                }
+
+                const cacheKey = `${char}_${height}_${rampName}`;
+                if (asciiCache[cacheKey]) {
+                    glyphs.push(asciiCache[cacheKey]);
+                    continue;
+                }
+
+                const matrix = renderCharToMatrix(char, fontSize, height);
+                const ascii = matrixToAscii(matrix, ramp);
+                if (ascii.length > 0) {
+                    asciiCache[cacheKey] = ascii;
+                    glyphs.push(ascii);
+                }
+            }
+
+            if (glyphs.length === 0) return '';
+
+            // Combine glyphs side by side
+            const spacer = ' '.repeat(spacing);
+            const lines = Array(height).fill('');
+            for (const glyph of glyphs) {
+                const maxW = Math.max(...glyph.map(l => l.length));
+                for (let i = 0; i < height; i++) {
+                    const line = i < glyph.length ? glyph[i] : '';
+                    lines[i] += line.padEnd(maxW) + spacer;
+                }
+            }
+
+            return lines.map(l => l.trimEnd()).join('\n');
+        }
+
+        // ── UI ──────────────────────────────────────────────────────────
+        const inputEl = document.getElementById('inputText');
+        const outputPre = document.getElementById('outputPre');
+        const heightRange = document.getElementById('heightRange');
+        const heightVal = document.getElementById('heightVal');
+        const rampSelect = document.getElementById('rampSelect');
+        const fontPreview = document.getElementById('fontPreview');
+
+        heightRange.addEventListener('input', () => {
+            heightVal.textContent = `${heightRange.value}px`;
+        });
+
+        inputEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') generateAscii();
+        });
+
+        function generateAscii() {
+            const text = inputEl.value.trim();
+            if (!text) return;
+
+            fontPreview.textContent = text.toUpperCase();
+
+            const height = parseInt(heightRange.value);
+            const ramp = rampSelect.value;
+
+            // Small delay for UI feedback
+            outputPre.innerHTML = '<span class="placeholder">Generando...</span>';
+
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    const result = textToAscii(text, height, ramp);
+                    if (result) {
+                        outputPre.textContent = result;
+                        outputPre.style.color = currentColor;
+                    } else {
+                        outputPre.innerHTML = '<span class="placeholder">No se pudo generar el ASCII art. Asegúrate de que la fuente está cargada.</span>';
+                    }
+                }, 50);
+            });
+        }
+
+        function quickText(text) {
+            inputEl.value = text;
+            generateAscii();
+        }
+
+        function showAlphabet() {
+            const height = parseInt(heightRange.value);
+            const ramp = rampSelect.value;
+            let result = '';
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+            for (let i = 0; i < chars.length; i += 9) {
+                const chunk = chars.slice(i, i + 9);
+                result += textToAscii(chunk, height, ramp) + '\n\n';
+            }
+
+            outputPre.textContent = result;
+            outputPre.style.color = currentColor;
+            fontPreview.textContent = 'ALPHABET';
+        }
+
+        function setColor(el) {
+            document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            currentColor = el.dataset.color;
+            outputPre.style.color = currentColor;
+        }
+
+        function copyOutput() {
+            const text = outputPre.textContent;
+            if (!text || text.includes('Pulsa') || text.includes('Generando')) return;
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('ASCII art copiado al portapapeles');
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Auto-generate on load once font is ready
+        async function init() {
+            try {
+                await document.fonts.load('64px "Ethernium Sym"');
+                await document.fonts.ready;
+                generateAscii();
+            } catch (e) {
+                console.error('Font load error:', e);
+            }
+        }
+        init();
+    </script>
+</body>
+</html>

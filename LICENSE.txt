@@ -1,0 +1,16 @@
+ETHERNIUM SYM FONT LICENSE
+==========================
+
+Copyright (c) 2026 Ethernium. All rights reserved.
+
+This license covers the "Ethernium Sym" font software, including all compiled files (.ttf, .woff, .woff2), specimen generators, and related design assets.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of the Font Software, to use, copy, merge, publish, and distribute the Font Software, subject to the following conditions:
+
+1. Redistribution: The Font Software may be redistributed and used in other software, documents, or websites, provided that the original copyright notice and this license file are included.
+
+2. Modification: The Font Software may be modified or rebuilt using the creator tools, provided that any modified version is not sold as a standalone font product.
+
+3. Resale: Neither the Font Software nor any individual components (including the visual generator or text converter) may be sold, licensed, or sublicensed by themselves. They must be packaged as part of a larger creative work, software application, or digital product.
+
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE FONT SOFTWARE.

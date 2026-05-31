@@ -1,0 +1,43 @@
+{
+  "sheet": "my_glyph_sheet.png",
+  "output_basename": "MyFont",
+  "reference_height": 800,
+  "units_per_em": 1024,
+  "scale_base": 20,
+  "lsb_offset": 80,
+  "font": {
+    "version": "1.0",
+    "names": {
+      "copyright": "Your Name",
+      "familyName": "My Font",
+      "styleName": "Regular",
+      "uniqueFontIdentifier": "My Font Regular",
+      "fullName": "My Font Regular",
+      "version": "Version 1.000",
+      "psName": "MyFont-Regular"
+    }
+  },
+  "pipeline": {
+    "upscale": "auto",
+    "threshold": 0,
+    "angle_snap_degrees": 10,
+    "symmetry_blend": 0.88
+  },
+  "symmetry_chars": ["M", "O", "0", "8"],
+  "aliases": {},
+  "metrics": {
+    "ascent": 900,
+    "descent": -224,
+    "win_ascent": 1000,
+    "win_descent": 250
+  },
+  "rows": [
+    {
+      "name": "Uppercase",
+      "y_start": 100,
+      "y_end": 200,
+      "baseline": 190,
+      "chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    }
+  ]
+}

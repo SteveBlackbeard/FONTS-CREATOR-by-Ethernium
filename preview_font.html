@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethernium Sym — Font Specimen & Character Map</title>
+    <style>
+        @font-face {
+            font-family: 'Ethernium Sym';
+            src: url('Ethernium_Sym.ttf?v=30') format('truetype'),
+                 url('Ethernium_Sym.woff2?v=30') format('woff2'),
+                 url('Ethernium_Sym.woff?v=30') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        :root {
+            --bg-color: #08080a;
+            --card-bg: rgba(20, 20, 25, 0.6);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-color: #e2e8f0;
+            --accent-glow: rgba(255, 255, 255, 0.15);
+            --text-muted: #71717a;
+            --font-main: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(30, 30, 40, 0.3) 0%, transparent 60%),
+                radial-gradient(circle at 0% 100%, rgba(20, 20, 30, 0.2) 0%, transparent 40%);
+            color: #f4f4f5;
+            font-family: var(--font-main);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .logo-font {
+            font-family: 'Ethernium Sym';
+            font-size: 3.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 20px var(--accent-glow);
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+            100% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title span.badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--accent-color);
+        }
+
+        /* Interactive Area */
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            color: #ffffff;
+            font-family: 'Ethernium Sym';
+            font-size: 2.2rem;
+            line-height: 1.4;
+            resize: none;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        textarea:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.03);
+        }
+
+        .size-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .size-slider {
+            flex-grow: 1;
+            max-width: 250px;
+            accent-color: var(--accent-color);
+        }
+
+        /* Character Grid */
+        .char-sections {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .section-header {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-header::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .char-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-end;
+        }
+
+        .char-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 64px;
+            height: 76px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            flex: 0 0 64px;
+        }
+
+        .char-box:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .char-box:active {
+            transform: translateY(1px);
+        }
+
+        .char-glyph {
+            font-family: 'Ethernium Sym';
+            font-size: 2rem;
+            color: #ffffff;
+            line-height: 1;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            flex: 1 1 auto;
+        }
+
+        .char-key {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-family: var(--font-main);
+        }
+
+        /* Footer info */
+        .warn-banner {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            background: rgba(251, 191, 36, 0.12);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: #fde68a;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        footer a {
+            color: var(--accent-color);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(167, 139, 250, 0.15);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            color: #c4b5fd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Waterfall specimen */
+        .waterfall {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .waterfall-row {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+        .waterfall-size {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            min-width: 36px;
+            text-align: right;
+            font-family: var(--font-main);
+        }
+        .waterfall-text {
+            font-family: 'Ethernium Sym';
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Char-box tooltip */
+        .char-box { position: relative; }
+        .char-box .tooltip {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: #a1a1aa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s;
+            font-family: var(--font-main);
+        }
+        .char-box:hover .tooltip { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="warn-banner" id="fontWarn">
+        La fuente Ethernium no se cargo. Ejecuta <code>python build_ethernium.py</code>, abre este HTML desde la carpeta del proyecto (no copies el archivo) y pulsa Ctrl+F5. No uses <code>Ethernium_Sym.otf</code> (archivo antiguo).
+    </div>
+
+    <header>
+        <div class="logo-font">ETHERNIUM</div>
+        <div class="subtitle" id="buildStatus">v3.0 • Ctrl+Shift+R para recargar fuente</div>
+    </header>
+
+    <main>
+        <!-- Interactive Tester -->
+        <div class="card">
+            <div class="card-title">
+                Probar Fuente Interactiva
+                <span class="badge">Escribe aquí abajo</span>
+            </div>
+            <textarea id="tester">ETHERNIUM Ω :: ROOT CORE ACTIVE :: SYNKRONIA_NODE_01
+FRACTAL-LINK_ESTABLISHED ∞</textarea>
+            <div class="size-controls">
+                <span>Tamaño:</span>
+                <input type="range" class="size-slider" id="sizeRange" min="20" max="80" value="35">
+                <span id="sizeVal">35px</span>
+            </div>
+        </div>
+
+        <!-- Full Character Set -->
+        <div class="card">
+            <div class="card-title">Mapa de Caracteres Completo</div>
+
+            <div class="char-sections">
+                <!-- Mayúsculas -->
+                <div>
+                    <div class="section-header">Mayúsculas</div>
+                    <div class="char-grid" id="grid-uppercase"></div>
+                </div>
+
+                <!-- Minúsculas -->
+                <div>
+                    <div class="section-header">Minúsculas (Small Caps Style)</div>
+                    <div class="char-grid" id="grid-lowercase"></div>
+                </div>
+
+                <!-- Números -->
+                <div>
+                    <div class="section-header">Números</div>
+                    <div class="char-grid" id="grid-numbers"></div>
+                </div>
+
+                <!-- Puntuación -->
+                <div>
+                    <div class="section-header">Puntuación Básica y Extendida</div>
+                    <div class="char-grid" id="grid-punctuation"></div>
+                </div>
+
+                <!-- Símbolos Rituales / Especiales -->
+                <div>
+                    <div class="section-header">Símbolos Especiales / Rituales</div>
+                    <div class="char-grid" id="grid-special"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Waterfall Specimen -->
+        <div class="card">
+            <div class="card-title">
+                Specimen Waterfall
+                <span class="badge">12px → 72px</span>
+            </div>
+            <div class="waterfall" id="waterfall"></div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast">Copiado al portapapeles</div>
+
+    <footer>
+        <a href="unicode_converter.html" style="color: #b4a0ff; font-weight: 600; text-decoration: none; border-bottom: 1px dashed rgba(180, 160, 255, 0.4); margin-right: 8px;">Convertidor de Texto Unicode (Discord/Redes)</a> · 
+        <a href="tools/glyph_atlas.png" target="_blank">Atlas de glifos</a> · build.bat · python build_ethernium.py
+    </footer>
+
+    <script>
+        const tester = document.getElementById('tester');
+        const sizeRange = document.getElementById('sizeRange');
+        const sizeVal = document.getElementById('sizeVal');
+
+        // Font size control
+        sizeRange.addEventListener('input', (e) => {
+            const size = e.target.value;
+            tester.style.fontSize = `${size / 10}rem`;
+            sizeVal.textContent = `${size}px`;
+        });
+
+        // Helper to append a character to the tester
+        function typeChar(char) {
+            tester.value += char;
+            tester.focus();
+        }
+
+        // Grids generation
+        const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowercase = "abcdefghijklmnopqrstuvwxyz";
+        const numbers = "0123456789";
+        const punctuation = [
+            '.', ',', ':', ';', '!', '?', "'", '"', '-', '_', '/', '\\',
+            '(', ')', '[', ']', '{', '}', '<', '>', '@', '#', '%', '&', '*', '+', '=', '~'
+        ];
+        
+        // Ritual symbols mapped to unicode and keyboard labels
+        const specials = [
+            { char: '\u03A9', label: 'Ω (Omega)' },
+            { char: '\u2020', label: '† (Cruz)' },
+            { char: '\u2021', label: '‡ (D.Cruz)' },
+            { char: '\u221E', label: '∞ (Infinito)' },
+            { char: '\u0394', label: 'Δ (Delta)' },
+            { char: '\u25CA', label: '◇ (Rombo)' },
+            { char: '\u2609', label: '☉ (Sol)' },
+            { char: '\u263D', label: '☽ (Luna)' },
+            { char: '\u2318', label: '⌘ (Cmd)' },
+            { char: '\u273B', label: '✵ (Estrella)' }
+        ];
+
+        function measureChar(ch, sizePx = 32) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.font = `${sizePx}px "Ethernium Sym"`;
+            return Math.ceil(ctx.measureText(ch).width);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => toast.classList.remove('show'), 1800);
+        }
+
+        function makeGrid(chars, elementId) {
+            const grid = document.getElementById(elementId);
+            for (let item of chars) {
+                const char = typeof item === 'string' ? item : item.char;
+                const label = typeof item === 'string' ? item : item.label;
+                const cp = char.codePointAt(0);
+
+                const box = document.createElement('div');
+                box.className = 'char-box';
+                box.onclick = () => {
+                    typeChar(char);
+                    navigator.clipboard.writeText(char).then(() => {
+                        showToast(`Copiado: ${char} (U+${cp.toString(16).toUpperCase().padStart(4,'0')})`);
+                    });
+                };
+
+                // Tooltip with codepoint
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = `U+${cp.toString(16).toUpperCase().padStart(4,'0')}`;
+
+                const glyph = document.createElement('div');
+                glyph.className = 'char-glyph';
+                glyph.textContent = char;
+
+                const key = document.createElement('div');
+                key.className = 'char-key';
+                key.textContent = label;
+
+                box.appendChild(tooltip);
+                box.appendChild(glyph);
+                box.appendChild(key);
+                grid.appendChild(box);
+            }
+        }
+
+        makeGrid(uppercase.split(''), 'grid-uppercase');
+        makeGrid(lowercase.split(''), 'grid-lowercase');
+        makeGrid(numbers.split(''), 'grid-numbers');
+        makeGrid(punctuation, 'grid-punctuation');
+        makeGrid(specials, 'grid-special');
+
+        // Waterfall specimen
+        const waterfallSizes = [12, 16, 20, 24, 32, 40, 48, 56, 64, 72];
+        const waterfallEl = document.getElementById('waterfall');
+        waterfallSizes.forEach(size => {
+            const row = document.createElement('div');
+            row.className = 'waterfall-row';
+            const sizeLabel = document.createElement('span');
+            sizeLabel.className = 'waterfall-size';
+            sizeLabel.textContent = `${size}px`;
+            const text = document.createElement('span');
+            text.className = 'waterfall-text';
+            text.style.fontSize = `${size}px`;
+            text.textContent = 'ETHERNIUM SYM :: ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            row.appendChild(sizeLabel);
+            row.appendChild(text);
+            waterfallEl.appendChild(row);
+        });
+
+        async function ensureFontLoaded() {
+            const warn = document.getElementById('fontWarn');
+            const family = 'Ethernium Sym';
+            try {
+                await document.fonts.load(`64px "${family}"`);
+                await document.fonts.ready;
+                const ok = document.fonts.check(`16px "${family}"`);
+                if (!ok) {
+                    warn.style.display = 'block';
+                    return;
+                }
+                document.querySelectorAll('.logo-font, #tester, .char-glyph').forEach(el => {
+                    el.style.fontFamily = `"${family}", monospace`;
+                });
+            } catch (e) {
+                warn.style.display = 'block';
+                console.error('Font load failed:', e);
+            }
+        }
+        ensureFontLoaded();
+
+        fetch('build_report.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(data => {
+                if (!data) return;
+                const ok = data.rows.every(row => row.ok);
+                const el = document.getElementById('buildStatus');
+                el.textContent = ok
+                    ? `v${data.version} • ${data.sheet} • ${data.rows.length} filas OK`
+                    : `Build con avisos — revisa build_report.json`;
+                el.style.color = ok ? '#a1a1aa' : '#fbbf24';
+            })
+            .catch(() => {});
+    </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalar Ethernium Sym</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0d;
+            --card: rgba(18, 18, 24, 0.85);
+            --border: rgba(255,255,255,0.06);
+            --accent: #a78bfa;
+            --accent2: #818cf8;
+            --text: #e4e4e7;
+            --muted: #71717a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse at 20% 0%, rgba(167,139,250,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(129,140,248,0.04) 0%, transparent 50%);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+        h1 span { font-weight: 700; color: var(--accent); }
+        .subtitle { color: var(--muted); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 2.5rem; }
+        .platform-tabs {
+            display: flex; gap: 0.5rem; margin-bottom: 2rem;
+        }
+        .tab {
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+        }
+        .tab:hover { border-color: rgba(167,139,250,0.3); color: var(--text); }
+        .tab.active {
+            background: rgba(167,139,250,0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .steps { max-width: 700px; width: 100%; }
+        .step {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            backdrop-filter: blur(8px);
+            transition: border-color 0.3s;
+        }
+        .step:hover { border-color: rgba(167,139,250,0.2); }
+        .step-num {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(167,139,250,0.12);
+            color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+        .step-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .step-content p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+        code {
+            background: rgba(167,139,250,0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            color: var(--accent2);
+        }
+        .cta {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(167,139,250,0.25); }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .web-snippet {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin-top: 0.8rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: #c4b5fd;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.6;
+        }
+        footer { margin-top: 3rem; color: var(--muted); font-size: 0.75rem; }
+    </style>
+</head>
+<body>
+    <h1><span>ETHERNIUM</span> SYM</h1>
+    <div class="subtitle">GUÍA DE INSTALACIÓN</div>
+
+    <div class="platform-tabs">
+        <button class="tab active" onclick="showPanel('windows')">Windows</button>
+        <button class="tab" onclick="showPanel('mac')">macOS</button>
+        <button class="tab" onclick="showPanel('linux')">Linux</button>
+        <button class="tab" onclick="showPanel('web')">Web (CSS)</button>
+    </div>
+
+    <div class="steps">
+        <!-- Windows -->
+        <div class="panel active" id="panel-windows">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Localiza el archivo</h3>
+                    <p>Busca <code>Ethernium_Sym.ttf</code> en esta carpeta.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Haz doble clic</h3>
+                    <p>Se abrirá el visor de fuentes de Windows mostrando una vista previa de Ethernium Sym.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Clic en "Instalar"</h3>
+                    <p>El botón está en la esquina superior izquierda de la ventana del visor.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h3>¡Listo!</h3>
+                    <p>La fuente ya está disponible en <strong>Photoshop, Word, Figma, Illustrator, Premiere</strong> y cualquier software como <code>Ethernium Sym</code>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- macOS -->
+        <div class="panel" id="panel-mac">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Haz doble clic en el archivo TTF</h3>
+                    <p>Se abrirá Font Book mostrando una vista previa de la fuente.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Clic en "Instalar fuente"</h3>
+                    <p>Font Book la añadirá automáticamente al sistema.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Reinicia tu app de diseño</h3>
+                    <p>Cierra y vuelve a abrir Figma, Sketch, Illustrator, etc. para ver <code>Ethernium Sym</code> en la lista de fuentes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linux -->
+        <div class="panel" id="panel-linux">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Copia el archivo al directorio de fuentes</h3>
+                    <p><code>cp Ethernium_Sym.ttf ~/.local/share/fonts/</code></p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Actualiza la caché de fuentes</h3>
+                    <p><code>fc-cache -fv</code></p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Verifica la instalación</h3>
+                    <p><code>fc-list | grep Ethernium</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Web -->
+        <div class="panel" id="panel-web">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Copia los archivos .woff2 y .woff a tu servidor</h3>
+                    <p>Son los formatos optimizados para la web. WOFF2 tiene un 53% de compresión sobre TTF.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Añade este CSS</h3>
+                    <div class="web-snippet">@font-face {
+    font-family: 'Ethernium Sym';
+    src: url('Ethernium_Sym.woff2') format('woff2'),
+         url('Ethernium_Sym.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.ethernium-text {
+    font-family: 'Ethernium Sym', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+}</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Usa la clase en tu HTML</h3>
+                    <p><code>&lt;h1 class="ethernium-text"&gt;ETHERNIUM&lt;/h1&gt;</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="preview_font.html" class="cta">→ Ver mapa de caracteres</a>
+
+    <footer>Ethernium Sym v2.5 · Cyberpunk-Runic Display Typeface</footer>
+
+    <script>
+        function showPanel(id) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('panel-' + id).classList.add('active');
+            event.target.classList.add('active');
+        }
+        // Auto-detect platform
+        const ua = navigator.userAgent.toLowerCase();
+        if (ua.includes('mac')) showPanel('mac');
+        else if (ua.includes('linux')) showPanel('linux');
+    </script>
+</body>
+</html>

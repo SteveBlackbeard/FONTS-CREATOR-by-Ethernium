@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.ttf
+*.woff
+*.woff2
+*.otf
+*.flf
+build_report.json
+tools/*.png
+.env
