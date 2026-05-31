@@ -36,9 +36,9 @@ jobs:
         run: |
           echo "=== Font Forge Engine Check ==="
           python -c "
-          from font_forge.core import FontForge
+          from font_forge.core import SheetToFontBuilder
           from font_forge.config import load_config
-          print('✅ FontForge engine imports OK')
+          print('✅ SheetToFontBuilder engine imports OK')
           print('✅ Config loader imports OK')
           "
 

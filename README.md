@@ -8,7 +8,7 @@
 [![Version](https://img.shields.io/badge/version-4.0-blueviolet)](https://github.com/SteveBlackbeard/FONTS-FORGE-by-Ethernium/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/SteveBlackbeard/FONTS-FORGE-by-Ethernium/blob/main/LICENSE.txt)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Pages](https://img.shields.io/badge/demo-GitHub%20Pages-orange)](https://steveblackbeard.github.io/FONTS-FORGE-by-Ethernium/tools.html)
+[![Pages](https://img.shields.io/badge/demo-GitHub%20Pages-orange)](https://steveblackbeard.github.io/FONTS-FORGE-by-Ethernium/)
 
 #### Languages
 
@@ -34,7 +34,7 @@
 
 ## 🌐 Interactive Web Tools
 
-> 🔗 **[Try them live on GitHub Pages →](https://steveblackbeard.github.io/FONTS-FORGE-by-Ethernium/tools.html)**
+> 🔗 **[Try them live on GitHub Pages →](https://steveblackbeard.github.io/FONTS-FORGE-by-Ethernium/)**
 
 | Tool | Description |
 |------|-------------|

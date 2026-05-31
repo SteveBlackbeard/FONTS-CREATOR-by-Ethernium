@@ -33,7 +33,7 @@ jobs:
       - name: 🏗️ Build Pages Directory
         run: |
           mkdir -p _site
-          cp preview_font.html _site/index.html
+          cp preview_font.html _site/preview_font.html
           cp ascii_generator.html _site/ascii_generator.html
           cp presentation_generator.html _site/presentation_generator.html
           cp unicode_converter.html _site/unicode_converter.html
@@ -41,7 +41,7 @@ jobs:
           cp ethernium_sheet_hq.png _site/ethernium_sheet_hq.png
 
           # Create a landing page
-          cat > _site/tools.html << 'EOF'
+          cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -103,7 +103,7 @@ jobs:
             <h1>FONTS FORGE</h1>
             <p class="subtitle">Interactive Web Tools — Forged by Ethernium</p>
             <div class="grid">
-              <a href="index.html" class="card">
+              <a href="preview_font.html" class="card">
                 <span class="emoji">🔤</span>
                 <h3>Font Specimen Viewer</h3>
                 <p>Complete character grid with copy-to-clipboard, waterfall sizes (12px–72px), and CSS embedding code.</p>
